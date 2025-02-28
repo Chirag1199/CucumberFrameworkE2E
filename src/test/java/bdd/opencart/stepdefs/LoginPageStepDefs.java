@@ -8,8 +8,12 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 
 public class LoginPageStepDefs {
@@ -68,9 +72,13 @@ public class LoginPageStepDefs {
     }
 
     @Then("I should see an error message {string}")
-    public void i_should_see_an_error_message() {
+    public void i_should_see_an_error_message(String expectedErrorMessage) {
 
-        Assert.assertTrue(driver.findElement(By.xpath("//h3[@data-test='error']")).isDisplayed());
+        WebElement errorMessage = driver.findElement(By.xpath("//h3[@data-test='error']"));
+
+        String actualErrorMessage = errorMessage.getText();
+
+        Assert.assertEquals(expectedErrorMessage, actualErrorMessage, "Error message is different! ");
 
     }
 

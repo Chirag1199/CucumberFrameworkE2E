@@ -16,7 +16,7 @@ public class LoginPage {
     private By usernameInputLocator = By.name("user-name");
     private By passwordInputLocator = By.name("password");
     private By loginButtonLocator = By.xpath("//input[@name='login-button']");
-    private By hamburgerMenu = By.xpath("//button[@id='react-burger-cross-btn']");
+    // private By hamburgerMenu = By.xpath("//button[@id='react-burger-cross-btn']");
     private By logoutButton = By.xpath("//a[@id='logout_sidebar_link']");
     private By homepageTitle = By.xpath("//div[@class='app_logo']");
 
@@ -42,11 +42,11 @@ public class LoginPage {
         loginButton.click();
     }
 
-//    public void login(String username, String password) {
-//        enterUsername(username);
-//        enterPassword(password);
-//        clickLoginButton();
-//    }
+    public void login(String username, String password) {
+        enterUsername(username);
+        enterPassword(password);
+        clickLoginButton();
+    }
 
     // Confirmation of homepage after logged in.
     public boolean logoOnHomePage(){
@@ -55,14 +55,16 @@ public class LoginPage {
 
     // User clicks on Menu button after login in.
     public void clickOnHamburgerMenu() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement menuButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("react-burger-menu-btn")));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebElement menuButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='react-burger-menu-btn']")));
         menuButton.click();
     }
 
     // Confirms if the logout button is displayed on the home page
     public boolean logoutButtonDisplayed(){
-        return driver.findElement(logoutButton).isDisplayed();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(logoutButton)).isDisplayed();
+
     }
 
 
