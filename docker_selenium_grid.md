@@ -7,7 +7,7 @@ This guide documents the process of setting up and running Selenium tests using 
 
 ## Steps:
 
-1. Setting up `docker-compose.yml` 
+1. Setting up [`docker-compose.yml`](bit.ly/4iACaGF) 
 2. Running the containers
 3. Connecting tests to Selenium Grid
 
