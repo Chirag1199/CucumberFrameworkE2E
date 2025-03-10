@@ -10,9 +10,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 
@@ -22,8 +26,23 @@ public class LoginPageStepDefs {
     private LoginPage loginPage;
 
     @Before
-    public void setup(){
-        driver = new ChromeDriver();
+//    public void setup(){
+//        driver = new ChromeDriver();
+//    }
+
+    public void setup() throws MalformedURLException {
+        // URL of the Selenium Grid Hub
+        String remoteUrl = "http://selenium-hub:4444/wd/hub";
+
+        // Set browser capabilities
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName("chrome");  // Change to "firefox" if needed
+
+        // Initialize RemoteWebDriver
+        this.driver = new RemoteWebDriver(new URL(remoteUrl), capabilities);
+
+        // Initialize the page object with the remote driver
+        this.loginPage = new LoginPage(this.driver);
     }
 
     @After
